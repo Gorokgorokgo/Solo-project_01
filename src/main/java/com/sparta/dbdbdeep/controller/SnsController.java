@@ -19,8 +19,6 @@ public class SnsController {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  // private final Map<Long, Sns> feedList = new HashMap<>();
-
   @PostMapping("/sns")
   public SnsResponseDto upLoadFeed(@RequestBody SnsRequestDto snsRequestDto) {
     SnsService snsService = new SnsService(jdbcTemplate);
