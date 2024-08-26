@@ -58,7 +58,7 @@ public class SnsRepository {
   }
 
   public void update(Long id, SnsRequestDto snsRequestDto) {
-    String sql = "UPDATE sns Set userId = ?, userPassword = ?, contents = ?, uploadDate = ? WHERE id = ?";
+    String sql = "UPDATE sns Set userId = ?, contents = ?, uploadDate = ? WHERE id = ?";
     jdbcTemplate.update(sql, snsRequestDto.getUserId(),
         snsRequestDto.getUserPassword(), snsRequestDto.getContents(), snsRequestDto.getUploadDate(), id);
   }
@@ -77,6 +77,7 @@ public class SnsRepository {
     return jdbcTemplate.query(sql, resultSet -> {
       if (resultSet.next()) {
         Sns sns = new Sns();
+        sns.setId(resultSet.getLong("id"));
         sns.setUserId(resultSet.getString("userId"));
         sns.setContents(resultSet.getString("contents"));
         sns.setUploadDate(resultSet.getString("uploadDate"));
@@ -85,5 +86,25 @@ public class SnsRepository {
         return null;
       }
     }, id);
+  }
+
+  public List<SnsResponseDto> findByDate(String Date) {
+    String sql = "SELECT * FROM sns WHERE uploadDate = ?";
+
+    return jdbcTemplate.query(sql, new RowMapper<SnsResponseDto>() {
+      @Override
+      public SnsResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+        if ((rs.getString("uploadDate").substring(0,10)).equals(Date.substring(0,10))) {
+          Long id = rs.getLong("id");
+          String userId = rs.getString("userId");
+          String userPassword = rs.getString("userPassword");
+          String contents = rs.getString("contents");
+          String uploadDate = rs.getString("uploadDate");
+          return new SnsResponseDto(id, userId, userPassword, contents, uploadDate);
+        } else {
+          return null;
+        }
+      }
+    });
   }
 }

@@ -29,6 +29,14 @@ public class SnsService {
     // snsList 가 map 타입이므로, List 타입으로 변환
     return snsRepository.findAll();
   }
+  public List<SnsResponseDto> getDateSns(String date) {
+    // snsList 가 map 타입이므로, List 타입으로 변환
+    return snsRepository.findByDate(date);
+  }
+  public SnsResponseDto getOneSns(Long id) {
+    Sns sns = snsRepository.findById(id);
+    return new SnsResponseDto(sns);
+  }
 
   public String updateSns(Long id, SnsRequestDto snsRequestDto) {
     // feedList에 수정하고자 하는 feed가 존재하는지 확인
@@ -60,4 +68,6 @@ public class SnsService {
       throw new IllegalArgumentException("해당 피드는 존재하지 않습니다.");
     }
   }
+
+
 }
