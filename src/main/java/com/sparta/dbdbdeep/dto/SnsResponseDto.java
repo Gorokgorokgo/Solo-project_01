@@ -15,6 +15,7 @@ public class SnsResponseDto {
     this.id = sns.getId();
     this.userId = sns.getUserId();
     this.contents = sns.getContents();
+    this.uploadDate = sns.getUploadDate();
   }
 
   public SnsResponseDto(Long id, String userId, String userPassword, String contents, String uploadDate) {

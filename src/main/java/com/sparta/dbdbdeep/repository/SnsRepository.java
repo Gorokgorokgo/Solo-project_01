@@ -33,8 +33,7 @@ public class SnsRepository {
           preparedStatement.setString(3, sns.getContents());
           preparedStatement.setString(4, sns.getUploadDate());
           return preparedStatement;
-        },
-        keyHolder);
+        }, keyHolder);
 
     Long id = keyHolder.getKey().longValue();
     sns.setId(id);

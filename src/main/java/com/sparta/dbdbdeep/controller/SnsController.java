@@ -13,33 +13,29 @@ import java.util.List;
 @RequestMapping("/api")
 public class SnsController {
 
-  private final JdbcTemplate jdbcTemplate;
+  private final SnsService snsService;
 
   public SnsController(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
+    this.snsService = new SnsService(jdbcTemplate);
   }
 
   @PostMapping("/sns")
   public SnsResponseDto upLoadFeed(@RequestBody SnsRequestDto snsRequestDto) {
-    SnsService snsService = new SnsService(jdbcTemplate);
     return snsService.upLoadFeed(snsRequestDto);
   }
 
   @GetMapping("/sns")
   public List<SnsResponseDto> getSns() {
-    SnsService snsService = new SnsService(jdbcTemplate);
     return snsService.getSns();
   }
 
   @PutMapping("/sns/{id}")
   public String updateSns(@PathVariable Long id, @RequestBody SnsRequestDto snsRequestDto) {
-    SnsService snsService = new SnsService(jdbcTemplate);
     return snsService.updateSns(id, snsRequestDto);
   }
 
   @DeleteMapping("/sns/{id}")
   public String deleteSns(@PathVariable Long id) {
-    SnsService snsService = new SnsService(jdbcTemplate);
     return snsService.deleteSns(id);
   }
 }
