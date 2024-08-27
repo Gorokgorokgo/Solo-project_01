@@ -91,21 +91,17 @@ public class SnsRepository {
   }
 
   public List<SnsResponseDto> findByDate(String Date) {
-    String sql = "SELECT * FROM sns WHERE uploadDate = ?";
+    String sql = "SELECT * FROM sns WHERE uploadDate LIKE '"+Date+"%'";
 
     return jdbcTemplate.query(sql, new RowMapper<SnsResponseDto>() {
       @Override
       public SnsResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-        if ((rs.getString("uploadDate").substring(0,10)).equals(Date.substring(0,10))) {
-          Long id = rs.getLong("id");
-          String userId = rs.getString("userId");
-          String userPassword = rs.getString("userPassword");
-          String contents = rs.getString("contents");
-          String uploadDate = rs.getString("uploadDate");
-          return new SnsResponseDto(id, userId, userPassword, contents, uploadDate);
-        } else {
-          return null;
-        }
+        Long id = rs.getLong("id");
+        String userId = rs.getString("userId");
+        String userPassword = rs.getString("userPassword");
+        String contents = rs.getString("contents");
+        String uploadDate = rs.getString("uploadDate");
+        return new SnsResponseDto(id, userId, userPassword, contents, uploadDate);
       }
     });
   }

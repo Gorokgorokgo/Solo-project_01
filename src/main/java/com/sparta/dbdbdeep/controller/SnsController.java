@@ -31,7 +31,7 @@ public class SnsController {
   public SnsResponseDto getOneSns(@PathVariable Long id) {
     return snsService.getOneSns(id);
   }
-  @GetMapping("/sns/{Date}")
+  @GetMapping("/sns/date/{Date}")
   public List<SnsResponseDto> getDateSns(@PathVariable String Date) {
     return snsService.getDateSns(Date);
   }
