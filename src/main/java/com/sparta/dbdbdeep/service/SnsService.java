@@ -4,15 +4,16 @@ import com.sparta.dbdbdeep.dto.SnsRequestDto;
 import com.sparta.dbdbdeep.dto.SnsResponseDto;
 import com.sparta.dbdbdeep.entity.Sns;
 import com.sparta.dbdbdeep.repository.SnsRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SnsService {
   private final SnsRepository snsRepository;
 
-  public SnsService(JdbcTemplate jdbcTemplate) {
-    this.snsRepository = new SnsRepository(jdbcTemplate);
+  public SnsService(SnsRepository snsRepository) {
+    this.snsRepository = snsRepository;
   }
 
   public SnsResponseDto upLoadFeed(SnsRequestDto snsRequestDto) {

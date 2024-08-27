@@ -4,7 +4,6 @@ package com.sparta.dbdbdeep.controller;
 import com.sparta.dbdbdeep.dto.SnsRequestDto;
 import com.sparta.dbdbdeep.dto.SnsResponseDto;
 import com.sparta.dbdbdeep.service.SnsService;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +14,8 @@ public class SnsController {
 
   private final SnsService snsService;
 
-  public SnsController(JdbcTemplate jdbcTemplate) {
-    this.snsService = new SnsService(jdbcTemplate);
+  public SnsController(SnsService snsService) {
+    this.snsService = snsService;
   }
 
   @PostMapping("/sns")
